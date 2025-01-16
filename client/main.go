@@ -39,6 +39,10 @@ func main() {
 		for _, file := range files {
 			fmt.Println(file.GetName(), file.GetPackage())
 		}
+		// acme/weather/v1/service.proto acme.weather.v1
+
+		// This shows that querying for acme.weather.v1.WeatherService only returns acme/weather/v1/service.proto.
+		// It is MISSING acme/weather/v1/types.proto, which is needed to have a full view of how to use this service.
 	}
 	{
 		files, err := stream.FileContainingSymbol("acme.weather.v2.WeatherService")
@@ -49,5 +53,9 @@ func main() {
 		for _, file := range files {
 			fmt.Println(file.GetName(), file.GetPackage())
 		}
+		// acme/weather/v2/service.proto acme.weather.v2
+		// acme/weather/shared/types.proto acme.weather.shared
+
+		// This shows that if you move types.proto to a different package, receive the types.proto FileDescriptor in the response.
 	}
 }
