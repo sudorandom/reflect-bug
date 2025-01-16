@@ -30,7 +30,9 @@ func newInsecureClient() *http.Client {
 func main() {
 	client := grpcreflect.NewClient(newInsecureClient(), "http://127.0.0.1:8080")
 	stream := client.NewStream(context.Background())
+
 	{
+		fmt.Println("Fetching acme.weather.v1.WeatherService (this service imports a file in the same package)")
 		files, err := stream.FileContainingSymbol("acme.weather.v1.WeatherService")
 		if err != nil {
 			log.Fatalf("err: %s", err)
@@ -44,7 +46,11 @@ func main() {
 		// This shows that querying for acme.weather.v1.WeatherService only returns acme/weather/v1/service.proto.
 		// It is MISSING acme/weather/v1/types.proto, which is needed to have a full view of how to use this service.
 	}
+
+	fmt.Println()
+
 	{
+		fmt.Println("Fetching acme.weather.v2.WeatherService (split into multiple packages)")
 		files, err := stream.FileContainingSymbol("acme.weather.v2.WeatherService")
 		if err != nil {
 			log.Fatalf("err: %s", err)
