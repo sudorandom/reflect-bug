@@ -11,7 +11,6 @@ $ go run server/main.go
 $ go run client/main.go
 Fetching acme.weather.v1.WeatherService (this service imports a file in the same package)
 acme/weather/v1/service.proto acme.weather.v1
-acme/weather/v1/types.proto acme.weather.v1
 
 Fetching acme.weather.v2.WeatherService (split into multiple packages)
 acme/weather/v2/service.proto acme.weather.v2
